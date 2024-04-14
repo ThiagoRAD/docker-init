@@ -1,5 +1,4 @@
-
-FROM --platform=$BUILDPLATFORM golang:1.25.1 AS build
+FROM golang:1.25.1 AS build
 WORKDIR /src
 
 # Download dependencies as a separate step to take advantage of Docker's caching.
