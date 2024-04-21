@@ -1,11 +1,9 @@
 FROM golang:1.25.1 AS build
 WORKDIR /src
 
-# Download dependencies as a separate step to take advantage of Docker's caching.
-# Leverage a cache mount to /go/pkg/mod/ to speed up subsequent builds.
-# Leverage bind mounts to go.sum and go.mod to avoid having to copy them into
-# the container.
-RUN --mount=type=cache,target=/go/pkg/mod/ \
+# Making a cache of the /go/pjg/mod directory to speed up subsequent builds.
+# Leverage a bind mount to the go.mod file to avoid having to copy the source
+RUN --mount=type=cache,target=/go/pkg/mod/ \ 
     --mount=type=bind,source=go.mod,target=go.mod \
     go mod download -x
 
